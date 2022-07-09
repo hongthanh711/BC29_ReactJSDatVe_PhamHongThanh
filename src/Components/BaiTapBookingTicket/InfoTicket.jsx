@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import { connect } from "react-redux";
+
 export default class InfoTicket extends Component {
   render() {
     return (
@@ -22,14 +24,19 @@ export default class InfoTicket extends Component {
         <table className="table-bordered">
           <thead>
             <tr>
-              <th>Name</th>
-              <th>Number of Seats</th>
-              <th>Seats</th>
+              <th>Số ghế</th>
+              <th>Giá</th>
+              <th>Hủy</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Tổng tiền</td>
               <td></td>
               <td></td>
             </tr>
