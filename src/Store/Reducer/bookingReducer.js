@@ -1,6 +1,8 @@
+import dataGhe from "./../../Data/danhSachGhe.json";
+
 const DEFAULT_STATE = {
-  selectedSeat: {},
-  isStatus: false,
+  selectedSeat: dataGhe,
+
   cartTicket: [
     { soGhe: "A1", gia: 75000, daDat: false },
     { soGhe: "A3", gia: 12000, daDat: false },
@@ -11,14 +13,23 @@ export const bookingReducer = (state = DEFAULT_STATE, { type, payload }) => {
   switch (type) {
     case "SELECTED_SEAT": {
       console.log(payload.daDat);
+      const data = [...state.cartTicket];
 
       if (payload.daDat === false) {
-        state.isStatus = true;
+        state.selectedSeat.daDat = true;
+
+        const index = dataGhe.findIndex((ele) => {
+          return ele.danhSachGhe.findIndex(
+            (ele) => ele.soGhe === payload.soGhe
+          );
+        });
+
+        console.log(index);
       } else if (payload.daDat === true) {
-        state.isStatus = false;
+        state.selectedSeat.daDat = false;
       }
 
-      console.log(state.isStatus);
+      console.log(state.selectedSeat.daDat);
       return { ...state };
     }
 

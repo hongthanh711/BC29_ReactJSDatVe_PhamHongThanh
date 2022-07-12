@@ -5,25 +5,25 @@ import { connect } from "react-redux";
 
 class SeatMap extends Component {
   renderGhe = (ele) => {
-    return ele.danhSachGhe.map((gheList) => {
+    return ele.danhSachGhe.map((seat) => {
       return (
         <div
-          onClick={() => this.props.selectedSeat(gheList.soGhe, gheList.daDat)}
-          key={gheList.soGhe}
-          // className={gheList.daDat ? "gheDuocChon" : "ghe"}
+          onClick={() => this.props.selectedSeat(seat)}
+          key={seat.soGhe}
+          // className={seat.daDat ? "gheDuocChon" : "ghe"}
           className="ghe"
         >
-          {gheList.soGhe}
+          {seat.soGhe}
         </div>
       );
     });
   };
 
   renderSoHang = (ele) => {
-    return ele.danhSachGhe.map((gheList) => {
+    return ele.danhSachGhe.map((seat) => {
       return (
-        <div key={gheList.soGhe} className="rowNumber">
-          {gheList.soGhe}
+        <div key={seat.soGhe} className="rowNumber">
+          {seat.soGhe}
         </div>
       );
     });
@@ -48,8 +48,6 @@ class SeatMap extends Component {
   };
 
   render() {
-    console.log(this.props);
-    console.log(this.props);
     return (
       <div>
         <h1 className="bg-warning">ĐẶT VÉ XEM PHIM</h1>
@@ -70,10 +68,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProp = (dispatch) => {
   return {
-    selectedSeat: (soGhe, daDat) => {
+    selectedSeat: (seat) => {
       dispatch({
         type: "SELECTED_SEAT",
-        payload: { soGhe, daDat },
+        payload: seat,
       });
     },
   };
