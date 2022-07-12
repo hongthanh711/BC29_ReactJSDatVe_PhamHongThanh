@@ -8,8 +8,9 @@ class SeatMap extends Component {
     return ele.danhSachGhe.map((gheList) => {
       return (
         <div
-          onClick={() => this.props.selectedSeat(gheList.soGhe)}
+          onClick={() => this.props.selectedSeat(gheList.soGhe, gheList.daDat)}
           key={gheList.soGhe}
+          // className={gheList.daDat ? "gheDuocChon" : "ghe"}
           className="ghe"
         >
           {gheList.soGhe}
@@ -61,10 +62,10 @@ class SeatMap extends Component {
 
 const mapDispatchToProp = (dispatch) => {
   return {
-    selectedSeat: (soGhe) => {
+    selectedSeat: (soGhe, daDat) => {
       dispatch({
         type: "SELECTED_SEAT",
-        payload: soGhe,
+        payload: { soGhe, daDat },
       });
     },
   };
