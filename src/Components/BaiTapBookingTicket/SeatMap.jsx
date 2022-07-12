@@ -48,6 +48,8 @@ class SeatMap extends Component {
   };
 
   render() {
+    console.log(this.props);
+    console.log(this.props);
     return (
       <div>
         <h1 className="bg-warning">ĐẶT VÉ XEM PHIM</h1>
@@ -60,6 +62,12 @@ class SeatMap extends Component {
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    ...state.bookingReducer,
+  };
+};
+
 const mapDispatchToProp = (dispatch) => {
   return {
     selectedSeat: (soGhe, daDat) => {
@@ -71,4 +79,4 @@ const mapDispatchToProp = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProp)(SeatMap);
+export default connect(mapStateToProps, mapDispatchToProp)(SeatMap);

@@ -1,6 +1,10 @@
 const DEFAULT_STATE = {
   selectedSeat: {},
-  stateStatus: false,
+  isStatus: false,
+  cartTicket: [
+    { soGhe: "A1", gia: 75000, daDat: false },
+    { soGhe: "A3", gia: 12000, daDat: false },
+  ],
 };
 
 export const bookingReducer = (state = DEFAULT_STATE, { type, payload }) => {
@@ -9,14 +13,29 @@ export const bookingReducer = (state = DEFAULT_STATE, { type, payload }) => {
       console.log(payload.daDat);
 
       if (payload.daDat === false) {
-        state.stateStatus = true;
+        state.isStatus = true;
       } else if (payload.daDat === true) {
-        state.stateStatus = false;
+        state.isStatus = false;
       }
 
-      console.log(state.stateStatus);
+      console.log(state.isStatus);
       return { ...state };
     }
+
+    case "DELETE_TICKET": {
+      const data = [...state.cartTicket];
+
+      const index = data.findIndex((ele) => ele.soGhe === payload);
+
+      if (index !== -1) {
+        data.splice(index, 1);
+      }
+
+      state.cartTicket = data;
+
+      return { ...state };
+    }
+
     default:
       return state;
   }

@@ -2,7 +2,34 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
-export default class InfoTicket extends Component {
+class InfoTicket extends Component {
+  renderTicket = () => {
+    return this.props.cartTicket.map((ele) => {
+      return (
+        <tr key={ele.soGhe}>
+          <td>{ele.soGhe}</td>
+          <td>{ele.gia}</td>
+          <td>
+            <button
+              onClick={() => this.props.deleteTicket(ele.soGhe)}
+              className="btn btn-danger"
+            >
+              Hủy
+            </button>
+          </td>
+        </tr>
+      );
+    });
+  };
+
+  tinhTien = () => {
+    let tongTien = 0;
+    this.props.cartTicket.forEach((ele) => {
+      tongTien += ele.gia;
+    });
+    return tongTien;
+  };
+
   render() {
     return (
       <div>
@@ -30,14 +57,10 @@ export default class InfoTicket extends Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td></td>
-              <td></td>
-              <td></td>
-            </tr>
+            {this.renderTicket()}
             <tr>
               <td>Tổng tiền</td>
-              <td></td>
+              <td>{this.tinhTien()}</td>
               <td></td>
             </tr>
           </tbody>
@@ -46,3 +69,22 @@ export default class InfoTicket extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    ...state.bookingReducer,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteTicket: (soGhe) => {
+      dispatch({
+        type: "DELETE_TICKET",
+        payload: soGhe,
+      });
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(InfoTicket);
