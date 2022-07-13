@@ -8,10 +8,10 @@ class SeatMap extends Component {
     return ele.danhSachGhe.map((seat) => {
       return (
         <div
-          onClick={() => this.props.selectedSeat(seat)}
+          onClick={() => this.props.selectSeat(ele.hang, seat.soGhe)}
           key={seat.soGhe}
-          // className={seat.daDat ? "gheDuocChon" : "ghe"}
-          className="ghe"
+          className={seat.daDat ? "gheDangChon" : "ghe"}
+          // className="ghe"
         >
           {seat.soGhe}
         </div>
@@ -30,7 +30,7 @@ class SeatMap extends Component {
   };
 
   renderMap = () => {
-    return dataDanhSachGhe.map((ele, index) => {
+    return this.props.selectedSeat.map((ele, index) => {
       if (index === 0) {
         return (
           <div key={ele.hang} className="d-flex">
@@ -68,10 +68,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProp = (dispatch) => {
   return {
-    selectedSeat: (seat) => {
+    selectSeat: (hang, soGhe) => {
       dispatch({
-        type: "SELECTED_SEAT",
-        payload: seat,
+        type: "SELECT_SEAT",
+        payload: { hang, soGhe },
       });
     },
   };

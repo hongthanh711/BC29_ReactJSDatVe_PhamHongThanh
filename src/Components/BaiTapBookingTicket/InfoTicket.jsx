@@ -36,15 +36,15 @@ class InfoTicket extends Component {
         <div className="pb-3">
           <div className="d-flex">
             <div className="cell gheDuocChon"></div>
-            <span className="px-2">Selected Seat</span>
+            <span className="px-2">Ghế đã đặt</span>
           </div>
           <div className="d-flex">
             <div className="cell gheDangChon"></div>
-            <span className="px-2">Reserved Seat</span>
+            <span className="px-2">Ghế đang chọn</span>
           </div>
           <div className="d-flex">
             <div className="cell ghe ml-0"></div>
-            <span className="px-2">Empty Seat</span>
+            <span className="px-2">Ghế chưa đặt</span>
           </div>
         </div>
 

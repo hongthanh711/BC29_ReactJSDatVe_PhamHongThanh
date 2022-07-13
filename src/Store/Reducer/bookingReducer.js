@@ -11,25 +11,22 @@ const DEFAULT_STATE = {
 
 export const bookingReducer = (state = DEFAULT_STATE, { type, payload }) => {
   switch (type) {
-    case "SELECTED_SEAT": {
-      console.log(payload.daDat);
-      const data = [...state.cartTicket];
+    case "SELECT_SEAT": {
+      const data = [...state.selectedSeat];
 
-      if (payload.daDat === false) {
-        state.selectedSeat.daDat = true;
+      const hang = data.find((ele) => ele.hang === payload.hang);
 
-        const index = dataGhe.findIndex((ele) => {
-          return ele.danhSachGhe.findIndex(
-            (ele) => ele.soGhe === payload.soGhe
-          );
-        });
+      hang.danhSachGhe = hang.danhSachGhe.map((ghe) => {
+        if (ghe.soGhe === payload.soGhe) {
+          return { ...ghe, daDat: !ghe.daDat };
+        }
+        return ghe;
+      });
 
-        console.log(index);
-      } else if (payload.daDat === true) {
-        state.selectedSeat.daDat = false;
-      }
+      console.log(hang.danhSachGhe);
 
-      console.log(state.selectedSeat.daDat);
+      state.selectedSeat = data;
+
       return { ...state };
     }
 
