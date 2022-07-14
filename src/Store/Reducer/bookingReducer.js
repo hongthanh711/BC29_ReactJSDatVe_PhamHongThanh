@@ -48,15 +48,16 @@ export const bookingReducer = (state = DEFAULT_STATE, { type, payload }) => {
 
       // Chuyển sang false trong data
       const datamap = data.map((ele) => {
-        return ele.danhSachGhe.map((ghe) => {
-          if (ghe.soGhe === payload) {
-            return { ...ghe, daDat: !ghe.daDat };
-          }
-          return ghe;
-        });
+        return {
+          ...ele,
+          danhSachGhe: ele.danhSachGhe.map((ghe) => {
+            if (ghe.soGhe === payload) {
+              return { ...ghe, daDat: !ghe.daDat };
+            }
+            return ghe;
+          }),
+        };
       });
-
-      console.log(datamap);
 
       state.selectedSeat = datamap;
       state.cartTicket = dataCart;
