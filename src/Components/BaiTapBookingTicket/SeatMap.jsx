@@ -4,6 +4,20 @@ import dataDanhSachGhe from "./../../Data/danhSachGhe.json";
 import { connect } from "react-redux";
 
 class SeatMap extends Component {
+  renderSoHang = (ele) => {
+    return ele.danhSachGhe.map((seat) => {
+      return (
+        <div key={seat.soGhe} className="rowNumber">
+          {seat.soGhe}
+        </div>
+      );
+    });
+  };
+
+  renderHang = (ele) => {
+    return <div className="rowNumber">{ele.hang}</div>;
+  };
+
   renderGhe = (ele) => {
     return ele.danhSachGhe.map((seat) => {
       return (
@@ -19,27 +33,19 @@ class SeatMap extends Component {
     });
   };
 
-  renderSoHang = (ele) => {
-    return ele.danhSachGhe.map((seat) => {
-      return (
-        <div key={seat.soGhe} className="rowNumber">
-          {seat.soGhe}
-        </div>
-      );
-    });
-  };
-
   renderMap = () => {
     return this.props.selectedSeat.map((ele, index) => {
       if (index === 0) {
         return (
           <div key={ele.hang} className="d-flex">
+            {this.renderHang(ele)}
             {this.renderSoHang(ele)}
           </div>
         );
       } else {
         return (
           <div key={ele.hang} className="d-flex">
+            {this.renderHang(ele)}
             {this.renderGhe(ele)}
           </div>
         );
