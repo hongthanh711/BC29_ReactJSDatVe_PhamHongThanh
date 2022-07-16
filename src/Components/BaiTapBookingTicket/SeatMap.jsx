@@ -14,38 +14,57 @@ class SeatMap extends Component {
     });
   };
 
-  renderHang = (ele) => {
-    return <div className="rowNumber">{ele.hang}</div>;
-  };
+  timGhe = () => {};
 
   renderGhe = (ele) => {
     return ele.danhSachGhe.map((seat) => {
-      return (
-        <div
-          onClick={() => this.props.selectSeat(ele.hang, seat.soGhe)}
-          key={seat.soGhe}
-          className={seat.daDat ? "gheDangChon" : "ghe"}
-          // className="ghe"
-        >
-          {seat.soGhe}
-        </div>
+      const index = this.props.cartTicket.findIndex(
+        (ghe) => ghe.soGhe === seat.soGhe
       );
+
+      if (index !== -1) {
+        return (
+          <div
+            onClick={() => this.props.selectSeat(seat)}
+            key={seat.soGhe}
+            className="gheDangChon"
+          >
+            {seat.soGhe}
+          </div>
+        );
+      } else if (seat.daDat) {
+        return (
+          <div key={seat.soGhe} className="gheDuocChon">
+            {seat.soGhe}
+          </div>
+        );
+      } else if (seat.daDat === false) {
+        return (
+          <div
+            onClick={() => this.props.selectSeat(seat)}
+            key={seat.soGhe}
+            className="ghe"
+          >
+            {seat.soGhe}
+          </div>
+        );
+      }
     });
   };
 
   renderMap = () => {
-    return this.props.selectedSeat.map((ele, index) => {
+    return dataDanhSachGhe.map((ele, index) => {
       if (index === 0) {
         return (
           <div key={ele.hang} className="d-flex">
-            {this.renderHang(ele)}
+            <div className="rowNumber">{ele.hang}</div>
             {this.renderSoHang(ele)}
           </div>
         );
       } else {
         return (
           <div key={ele.hang} className="d-flex">
-            {this.renderHang(ele)}
+            <div className="rowNumber">{ele.hang}</div>
             {this.renderGhe(ele)}
           </div>
         );
@@ -74,10 +93,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProp = (dispatch) => {
   return {
-    selectSeat: (hang, soGhe) => {
+    selectSeat: (seat) => {
       dispatch({
         type: "SELECT_SEAT",
-        payload: { hang, soGhe },
+        payload: seat,
       });
     },
   };
